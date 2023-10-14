@@ -94,7 +94,7 @@ class NewsHomeViewController: UIViewController {
                     heightDimension: .fractionalHeight(1.0)
                 )
             )
-            item.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 2, trailing: 16)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 8, bottom: 0, trailing: 8)
             
             let horizontalGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
@@ -240,7 +240,13 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter?.gotoArticle()
+        let type = sections[indexPath.section]
+        switch type {
+        case .sources:
+            presenter?.gotoArticle()
+        default:
+            break
+        }
     }
 }
 

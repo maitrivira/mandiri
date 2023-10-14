@@ -17,6 +17,7 @@
 		B09B68032AD951A4003DAEF3 /* NewsWebView_Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B68022AD951A4003DAEF3 /* NewsWebView_Interactor.swift */; };
 		B09B68052AD951AC003DAEF3 /* NewsWebView_Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B68042AD951AC003DAEF3 /* NewsWebView_Entity.swift */; };
 		B09B68072AD951B2003DAEF3 /* NewsWebView_Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B68062AD951B2003DAEF3 /* NewsWebView_Router.swift */; };
+		B09B680A2AD960D0003DAEF3 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B68092AD960D0003DAEF3 /* APICaller.swift */; };
 		B0DDC36D2AD6D3C50086ADE1 /* CategoryCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DDC36C2AD6D3C50086ADE1 /* CategoryCVC.swift */; };
 		B0FC5ECE2AD69EA2000ED006 /* NewsHome_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC5ECD2AD69EA2000ED006 /* NewsHome_View.swift */; };
 		B0FC5ED02AD69EB2000ED006 /* NewsHome_Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC5ECF2AD69EB2000ED006 /* NewsHome_Presenter.swift */; };
@@ -46,6 +47,7 @@
 		B09B68022AD951A4003DAEF3 /* NewsWebView_Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWebView_Interactor.swift; sourceTree = "<group>"; };
 		B09B68042AD951AC003DAEF3 /* NewsWebView_Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWebView_Entity.swift; sourceTree = "<group>"; };
 		B09B68062AD951B2003DAEF3 /* NewsWebView_Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWebView_Router.swift; sourceTree = "<group>"; };
+		B09B68092AD960D0003DAEF3 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		B0DDC36C2AD6D3C50086ADE1 /* CategoryCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCVC.swift; sourceTree = "<group>"; };
 		B0FC5ECD2AD69EA2000ED006 /* NewsHome_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHome_View.swift; sourceTree = "<group>"; };
 		B0FC5ECF2AD69EB2000ED006 /* NewsHome_Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHome_Presenter.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				B03B87BD2AD69006004C0E3A /* AppDelegate.swift */,
+				B09B68082AD960C3003DAEF3 /* Configure */,
 				B004C5602AD91F76005EDECD /* Cell */,
 				B0FC5EE62AD6C5F1000ED006 /* Configuration */,
 				B03B87D12AD691BF004C0E3A /* Files */,
@@ -132,6 +135,14 @@
 				B09B68062AD951B2003DAEF3 /* NewsWebView_Router.swift */,
 			);
 			path = NewsWebView;
+			sourceTree = "<group>";
+		};
+		B09B68082AD960C3003DAEF3 /* Configure */ = {
+			isa = PBXGroup;
+			children = (
+				B09B68092AD960D0003DAEF3 /* APICaller.swift */,
+			);
+			path = Configure;
 			sourceTree = "<group>";
 		};
 		B0DDC36B2AD6D3990086ADE1 /* CustomCell */ = {
@@ -262,6 +273,7 @@
 				B0FC5EDF2AD6A30F000ED006 /* NewsArticle_Presenter.swift in Sources */,
 				B03B87BE2AD69006004C0E3A /* AppDelegate.swift in Sources */,
 				B0DDC36D2AD6D3C50086ADE1 /* CategoryCVC.swift in Sources */,
+				B09B680A2AD960D0003DAEF3 /* APICaller.swift in Sources */,
 				B09B68072AD951B2003DAEF3 /* NewsWebView_Router.swift in Sources */,
 				B0FC5ED82AD69FB9000ED006 /* NewsHome_Contract.swift in Sources */,
 				B0FC5ED42AD69ED0000ED006 /* NewsHome_Entity.swift in Sources */,

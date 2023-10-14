@@ -9,4 +9,8 @@ import Foundation
 
 class NewsHomeInteractor: NewsHome_Interactor_Protocol {
     var presenter: NewsHome_Presenter_Protocol?
+    
+//    func getSourceData() {
+//        guard let url = URL(string: <#T##String#>)
+//    }
 }
