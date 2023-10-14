@@ -68,13 +68,13 @@ class NewsCVC: UICollectionViewCell {
         view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         
         title.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        title.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        title.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        title.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        title.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
         title.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         desc.topAnchor.constraint(equalTo: title.bottomAnchor).isActive = true
-        desc.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        desc.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        desc.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        desc.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
         desc.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     

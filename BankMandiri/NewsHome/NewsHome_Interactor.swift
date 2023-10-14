@@ -10,6 +10,10 @@ import Foundation
 class NewsHomeInteractor: NewsHome_Interactor_Protocol {
     var presenter: NewsHome_Presenter_Protocol?
     
+    func getSourceByCategory() {
+        
+    }
+    
     func getSourceData() {
         guard let url = URL(string: "https://newsapi.org/v2/top-headlines/sources?apiKey=9531a305c89d4b4981c20b1a9a2aa182") else { return }
         

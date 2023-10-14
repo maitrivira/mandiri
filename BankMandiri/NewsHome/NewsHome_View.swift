@@ -174,7 +174,6 @@ class NewsHomeViewController: UIViewController {
             )
             
             let section = NSCollectionLayoutSection(group: verticalGroup)
-            section.orthogonalScrollingBehavior = .continuous
             return section
         default:
             let item = NSCollectionLayoutItem(
