@@ -47,7 +47,9 @@ class NewsHomeViewController: UIViewController {
     private func configureCollectionView() {
         view.addSubview(collectionView)
         collectionView.isHidden = true
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "category")
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "search")
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "sources")
         collectionView.register(CategoryCVC.self, forCellWithReuseIdentifier: CategoryCVC.identifier)
         collectionView.register(NewsCVC.self, forCellWithReuseIdentifier: NewsCVC.identifier)
         collectionView.dataSource = self
@@ -212,14 +214,12 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        
         let type = sections[indexPath.section]
         switch type {
         case .categoryTitle:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath)
             let title = UILabel(frame: CGRect(x: 0, y: 0, width: cell.bounds.size.width, height: 50))
             title.text = "Category"
-            cell.backgroundColor = .clear
             cell.contentView.addSubview(title)
             return cell
         case .category:
@@ -227,8 +227,14 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
             cell.text = listOfCategory[indexPath.row]
             return cell
         case .search:
-            cell.backgroundColor = .systemRed
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "search", for: indexPath)
+            let search: UITextField = UITextField(frame: CGRect(x: 0, y: 0, width: cell.bounds.size.width, height: cell.bounds.size.height))
+            search.placeholder = "Search"
+            search.borderStyle = UITextField.BorderStyle.line
+            cell.contentView.addSubview(search)
+            return cell
         case .sourcesTitle:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sources", for: indexPath)
             let title = UILabel(frame: CGRect(x: 0, y: 0, width: cell.bounds.size.width, height: 50))
             title.text = "Sources"
             cell.contentView.addSubview(title)
@@ -239,7 +245,6 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
             cell.descData = sources[indexPath.row].description
             return cell
         }
-        return cell
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
