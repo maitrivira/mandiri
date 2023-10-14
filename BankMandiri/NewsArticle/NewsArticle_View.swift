@@ -26,6 +26,7 @@ class NewsArticleViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
+        presenter?.viewDidLoad()
         setupView()
     }
     

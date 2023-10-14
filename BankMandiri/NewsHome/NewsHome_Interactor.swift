@@ -20,8 +20,8 @@ class NewsHomeInteractor: NewsHome_Interactor_Protocol {
             }
             
             do {
-                let sources = try JSONDecoder().decode(SuccesSources.self, from: data)
-                self?.presenter?.successGetSourceData(result: .success(sources.sources))
+                let data = try JSONDecoder().decode(SuccesSources.self, from: data)
+                self?.presenter?.successGetSourceData(result: .success(data.sources))
             } catch {
                 self?.presenter?.successGetSourceData(result: .failure(NetworkError.decodeError))
             }

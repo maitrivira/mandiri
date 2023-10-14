@@ -12,7 +12,21 @@ class NewsArticlePresenter: NewsArticle_Presenter_Protocol {
     var interactor: NewsArticle_Interactor_Protocol?
     var router: NewsArticle_Router_Protocol?
     
+    func viewDidLoad() {
+        interactor?.getArticleData()
+    }
+    
     func gotoWebView() {
         router?.gotoWebView()
+    }
+    
+    func successGetArticleData(result: Result<[Articles], Error>) {
+        switch result {
+        case .success(let sources):
+            print("success article")
+//            view?.update(sources: sources)
+        case .failure(let error):
+            print(error)
+        }
     }
 }
