@@ -10,7 +10,7 @@ import Foundation
 class NewsArticleRouter: NewsArticle_Router_Protocol {
     var entity: NewsArticleViewController?
     
-    static func createArticle() -> NewsArticle_Router_Protocol {
+    static func createArticle(data: [String: Any]?) -> NewsArticle_Router_Protocol {
         let router = NewsArticleRouter()
         let view = NewsArticleViewController()
         let presenter = NewsArticlePresenter()
@@ -18,6 +18,7 @@ class NewsArticleRouter: NewsArticle_Router_Protocol {
         
         view.presenter = presenter
         
+        presenter.data = data
         presenter.view = view
         presenter.router = router
         presenter.interactor = interactor

@@ -254,7 +254,8 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
         let type = sections[indexPath.section]
         switch type {
         case .sources:
-            presenter?.gotoArticle()
+            let source = sources[indexPath.row]
+            presenter?.gotoArticle(data: source)
         default:
             break
         }

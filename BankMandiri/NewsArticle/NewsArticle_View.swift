@@ -11,6 +11,8 @@ import UIKit
 class NewsArticleViewController: UIViewController {
     var presenter: NewsArticle_Presenter_Protocol?
     
+    private var articles = [Articles]()
+    
     private var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ in
@@ -47,13 +49,14 @@ class NewsArticleViewController: UIViewController {
     
     private func configureCollectionView() {
         view.addSubview(collectionView)
+        collectionView.isHidden = true
         collectionView.register(NewsCVC.self, forCellWithReuseIdentifier: NewsCVC.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 16).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     private static func createSectionLayout(section: Int) -> NSCollectionLayoutSection {
@@ -63,7 +66,7 @@ class NewsArticleViewController: UIViewController {
                 heightDimension: .fractionalHeight(1.0)
             )
         )
-        item.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 2, trailing: 16)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 16, bottom: 2, trailing: 16)
         
         let verticalGroup = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
@@ -75,19 +78,19 @@ class NewsArticleViewController: UIViewController {
         )
         
         let section = NSCollectionLayoutSection(group: verticalGroup)
-        section.orthogonalScrollingBehavior = .continuous
         return section
     }
 }
 
 extension NewsArticleViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return articles.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCVC.identifier, for: indexPath) as? NewsCVC else { return UICollectionViewCell() }
-        
+        cell.titleData = articles[indexPath.row].title
+        cell.descData = articles[indexPath.row].description
         return cell
     }
     
@@ -97,5 +100,11 @@ extension NewsArticleViewController: UICollectionViewDelegate, UICollectionViewD
 }
 
 extension NewsArticleViewController: NewsArticle_View_Protocol {
-    
+    func update(articles: [Articles]) {
+        DispatchQueue.main.async {
+            self.collectionView.isHidden = false
+            self.articles = articles
+            self.collectionView.reloadData()
+        }
+    }
 }

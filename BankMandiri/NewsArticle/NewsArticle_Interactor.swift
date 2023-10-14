@@ -10,8 +10,8 @@ import Foundation
 class NewsArticleInteractor: NewsArticle_Interactor_Protocol {
     var presenter: NewsArticle_Presenter_Protocol?
     
-    func getArticleData() {
-        guard let url = URL(string: "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=9531a305c89d4b4981c20b1a9a2aa182") else { return }
+    func getArticleData(id: String) {
+        guard let url = URL(string: "https://newsapi.org/v2/top-headlines?sources=\(id)&apiKey=9531a305c89d4b4981c20b1a9a2aa182") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             guard let data = data, error == nil else {

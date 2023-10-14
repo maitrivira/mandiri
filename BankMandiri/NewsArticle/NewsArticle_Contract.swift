@@ -9,6 +9,7 @@ import Foundation
 
 protocol NewsArticle_View_Protocol: AnyObject {
     var presenter: NewsArticle_Presenter_Protocol? { get set }
+    func update(articles: [Articles])
 }
 
 protocol NewsArticle_Presenter_Protocol: AnyObject {
@@ -22,11 +23,11 @@ protocol NewsArticle_Presenter_Protocol: AnyObject {
 
 protocol NewsArticle_Interactor_Protocol: AnyObject {
     var presenter: NewsArticle_Presenter_Protocol? { get set }
-    func getArticleData()
+    func getArticleData(id: String)
 }
 
 protocol NewsArticle_Router_Protocol: AnyObject {
     var entity: NewsArticleViewController? { get }
-    static func createArticle() -> NewsArticle_Router_Protocol
+    static func createArticle(data: [String: Any]?) -> NewsArticle_Router_Protocol
     func gotoWebView()
 }

@@ -29,8 +29,8 @@ class NewsHomeRouter: NewsHome_Router_Protocol {
         return router
     }
     
-    func gotoArticleView() {
-        let articleRouter = NewsArticleRouter.createArticle()
+    func gotoArticleView(data: [String: Any]?) {
+        let articleRouter = NewsArticleRouter.createArticle(data: data)
         guard let articleView = articleRouter.entity else { return }
         guard let viewController = self.entity else { return }
         viewController.navigationController?.pushViewController(articleView, animated: true)

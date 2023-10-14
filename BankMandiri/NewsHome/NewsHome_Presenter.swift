@@ -16,8 +16,9 @@ class NewsHomePresenter: NewsHome_Presenter_Protocol {
         interactor?.getSourceData()
     }
     
-    func gotoArticle() {
-        router?.gotoArticleView()
+    func gotoArticle(data: Sources) {
+        let param = ["sources": data]
+        router?.gotoArticleView(data: param)
     }
     
     func successGetSourceData(result: Result<[Sources], Error>) {

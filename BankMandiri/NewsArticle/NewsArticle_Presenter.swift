@@ -12,8 +12,17 @@ class NewsArticlePresenter: NewsArticle_Presenter_Protocol {
     var interactor: NewsArticle_Interactor_Protocol?
     var router: NewsArticle_Router_Protocol?
     
+    var data: [String: Any]? = [String: Any]()
+    
     func viewDidLoad() {
-        interactor?.getArticleData()
+        if let data = data {
+            let source = data["sources"] as? Sources
+            let id = source?.id
+            
+            if let id = id {
+                interactor?.getArticleData(id: id)
+            }
+        }
     }
     
     func gotoWebView() {
@@ -22,9 +31,8 @@ class NewsArticlePresenter: NewsArticle_Presenter_Protocol {
     
     func successGetArticleData(result: Result<[Articles], Error>) {
         switch result {
-        case .success(let sources):
-            print("success article")
-//            view?.update(sources: sources)
+        case .success(let articles):
+            view?.update(articles: articles)
         case .failure(let error):
             print(error)
         }

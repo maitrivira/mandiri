@@ -35,6 +35,7 @@ class NewsCVC: UICollectionViewCell {
     fileprivate let title: UILabel = {
         let title = UILabel()
         title.text = "title"
+        title.numberOfLines = 2
         title.textColor = .black
         title.translatesAutoresizingMaskIntoConstraints = false
         return title

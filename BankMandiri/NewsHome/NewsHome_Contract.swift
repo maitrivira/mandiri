@@ -17,7 +17,7 @@ protocol NewsHome_Presenter_Protocol: AnyObject {
     var interactor: NewsHome_Interactor_Protocol? { get set }
     var router: NewsHome_Router_Protocol? { get set }
     func viewDidLoad()
-    func gotoArticle()
+    func gotoArticle(data: Sources)
     func successGetSourceData(result: Result<[Sources], Error>)
 }
 
@@ -29,5 +29,5 @@ protocol NewsHome_Interactor_Protocol: AnyObject {
 protocol NewsHome_Router_Protocol: AnyObject {
     var entity: NewsHomeViewController? { get }
     static func startExecution() -> NewsHome_Router_Protocol
-    func gotoArticleView()
+    func gotoArticleView(data: [String: Any]?)
 }
