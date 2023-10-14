@@ -12,7 +12,20 @@ class NewsHomePresenter: NewsHome_Presenter_Protocol {
     var interactor: NewsHome_Interactor_Protocol?
     var router: NewsHome_Router_Protocol?
     
+    func viewDidLoad() {
+        interactor?.getSourceData()
+    }
+    
     func gotoArticle() {
         router?.gotoArticleView()
+    }
+    
+    func successGetSourceData(result: Result<[Sources], Error>) {
+        switch result {
+        case .success(let sources):
+            view?.update(sources: sources)
+        case .failure(let error):
+            print(error)
+        }
     }
 }

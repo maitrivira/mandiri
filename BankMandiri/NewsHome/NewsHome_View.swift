@@ -26,8 +26,10 @@ class NewsHomeViewController: UIViewController {
     }()
     
     private var sections = [NewsHomeSectionType]()
+    private var sources = [Sources]()
     
     override func viewDidLoad() {
+        presenter?.viewDidLoad()
         setupView()
         configureModel()
     }
@@ -44,6 +46,7 @@ class NewsHomeViewController: UIViewController {
     
     private func configureCollectionView() {
         view.addSubview(collectionView)
+        collectionView.isHidden = true
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(CategoryCVC.self, forCellWithReuseIdentifier: CategoryCVC.identifier)
         collectionView.register(NewsCVC.self, forCellWithReuseIdentifier: NewsCVC.identifier)
@@ -201,6 +204,8 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
         switch type {
         case .category:
             return listOfCategory.count
+        case .sources:
+            return sources.count
         default:
             return 1
         }
@@ -214,6 +219,7 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
         case .categoryTitle:
             let title = UILabel(frame: CGRect(x: 0, y: 0, width: cell.bounds.size.width, height: 50))
             title.text = "Category"
+            cell.backgroundColor = .clear
             cell.contentView.addSubview(title)
             return cell
         case .category:
@@ -229,7 +235,8 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
             return cell
         case .sources:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCVC.identifier, for: indexPath) as? NewsCVC else { return UICollectionViewCell() }
-            
+            cell.titleData = sources[indexPath.row].name
+            cell.descData = sources[indexPath.row].description
             return cell
         }
         return cell
@@ -251,5 +258,11 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
 }
 
 extension NewsHomeViewController: NewsHome_View_Protocol {
-    
+    func update(sources: [Sources]) {
+        DispatchQueue.main.async {
+            self.collectionView.isHidden = false
+            self.sources = sources
+            self.collectionView.reloadData()
+        }
+    }
 }

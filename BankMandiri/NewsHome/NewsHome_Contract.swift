@@ -9,17 +9,21 @@ import Foundation
 
 protocol NewsHome_View_Protocol: AnyObject {
     var presenter: NewsHome_Presenter_Protocol? { get set }
+    func update(sources: [Sources])
 }
 
 protocol NewsHome_Presenter_Protocol: AnyObject {
     var view: NewsHome_View_Protocol? { get set }
     var interactor: NewsHome_Interactor_Protocol? { get set }
     var router: NewsHome_Router_Protocol? { get set }
+    func viewDidLoad()
     func gotoArticle()
+    func successGetSourceData(result: Result<[Sources], Error>)
 }
 
 protocol NewsHome_Interactor_Protocol: AnyObject {
     var presenter: NewsHome_Presenter_Protocol? { get set }
+    func getSourceData()
 }
 
 protocol NewsHome_Router_Protocol: AnyObject {

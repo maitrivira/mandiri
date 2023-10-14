@@ -10,6 +10,20 @@ import UIKit
 class NewsCVC: UICollectionViewCell {
     static let identifier = "NewsCVC"
     
+    var titleData: String? {
+        didSet {
+            guard let titleData = titleData else { return }
+            title.text = titleData
+        }
+    }
+    
+    var descData: String? {
+        didSet {
+            guard let descData = descData else { return }
+            desc.text = descData
+        }
+    }
+    
     fileprivate let view: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
