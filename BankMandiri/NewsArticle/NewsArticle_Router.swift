@@ -30,8 +30,8 @@ class NewsArticleRouter: NewsArticle_Router_Protocol {
         return router
     }
     
-    func gotoWebView() {
-        let webRouter = NewsWebViewRouter.createWebView()
+    func gotoWebView(data: [String: Any]?) {
+        let webRouter = NewsWebViewRouter.createWebView(data: data)
         guard let webView = webRouter.entity else { return }
         guard let viewController = self.entity else { return }
         viewController.navigationController?.pushViewController(webView, animated: true)

@@ -25,8 +25,9 @@ class NewsArticlePresenter: NewsArticle_Presenter_Protocol {
         }
     }
     
-    func gotoWebView() {
-        router?.gotoWebView()
+    func gotoWebView(link: String) {
+        let param = ["link": link]
+        router?.gotoWebView(data: param)
     }
     
     func successGetArticleData(result: Result<[Articles], Error>) {

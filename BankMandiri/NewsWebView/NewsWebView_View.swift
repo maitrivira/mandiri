@@ -9,26 +9,25 @@ import Foundation
 import UIKit
 import WebKit
 
-class NewsWebViewViewController: UIViewController, WKUIDelegate {
+class NewsWebViewViewController: UIViewController, WKNavigationDelegate {
     var presenter: NewsWebView_Presenter_Protocol?
     
+    var webView: WKWebView!
+    var link: String? = "https://www.hackingwithswift.com"
+    
+    override func loadView() {
+        webView = WKWebView()
+        webView.navigationDelegate = self
+        view = webView
+    }
+    
     override func viewDidLoad() {
-        setupView()
-    }
-    
-    public func setupView() {
-        setupNavigation()
-        let myWebView: WKWebView = WKWebView(frame: CGRect(x:0, y:0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height))
-        myWebView.uiDelegate = self
-        self.view.addSubview(myWebView)
-        
-        let myURL = URL(string: "http://www.swiftdeveloperblog.com")
-        let myURLRequest:URLRequest = URLRequest(url: myURL!)
-        myWebView.load(myURLRequest)
-    }
-    
-    func setupNavigation() {
+        super.viewDidLoad()
         self.navigationItem.title = "DETAIL"
+        
+        let url = URL(string: link ?? "")!
+        webView.load(URLRequest(url: url))
+        webView.allowsBackForwardNavigationGestures = true
     }
 }
 

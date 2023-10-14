@@ -10,7 +10,7 @@ import Foundation
 class NewsWebViewRouter: NewsWebView_Router_Protocol {
     var entity: NewsWebViewViewController?
     
-    static func createWebView() -> NewsWebView_Router_Protocol {
+    static func createWebView(data: [String: Any]?) -> NewsWebView_Router_Protocol {
         let router = NewsWebViewRouter()
         let view = NewsWebViewViewController()
         let presenter = NewsWebViewPresenter()
@@ -18,6 +18,7 @@ class NewsWebViewRouter: NewsWebView_Router_Protocol {
         
         view.presenter = presenter
         
+        presenter.setupWebView(data: data)
         presenter.view = view
         presenter.router = router
         presenter.interactor = interactor
