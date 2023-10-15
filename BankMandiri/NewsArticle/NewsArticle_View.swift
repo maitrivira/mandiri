@@ -38,13 +38,9 @@ class NewsArticleViewController: UIViewController {
     }
     
     public func setupView() {
-        setupNavigation()
+        self.navigationItem.title = "ARTICLE"
         view.addSubview(spinner)
         configureCollectionView()
-    }
-    
-    func setupNavigation() {
-        self.navigationItem.title = "ARTICLE"
     }
     
     private func configureCollectionView() {
@@ -66,12 +62,12 @@ class NewsArticleViewController: UIViewController {
                 heightDimension: .fractionalHeight(1.0)
             )
         )
-        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 16, bottom: 2, trailing: 16)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
         
         let verticalGroup = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(400)
+                heightDimension: .absolute(500)
             ),
             subitem: item,
             count: 3
@@ -95,7 +91,7 @@ extension NewsArticleViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let link = articles[indexPath.row].url
+        let link = articles[indexPath.row].url ?? ""
         presenter?.gotoWebView(link: link)
     }
 }

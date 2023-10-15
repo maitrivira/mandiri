@@ -23,6 +23,7 @@ class NewsArticleInteractor: NewsArticle_Interactor_Protocol {
                 let data = try JSONDecoder().decode(ArticleSources.self, from: data)
                 self?.presenter?.successGetArticleData(result: .success(data.articles))
             } catch {
+                print("url", url)
                 self?.presenter?.successGetArticleData(result: .failure(NetworkError.decodeError))
             }
         }

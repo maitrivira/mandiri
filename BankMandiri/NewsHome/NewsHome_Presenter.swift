@@ -13,7 +13,15 @@ class NewsHomePresenter: NewsHome_Presenter_Protocol {
     var router: NewsHome_Router_Protocol?
     
     func viewDidLoad() {
+        getSourceData()
+    }
+    
+    func getSourceData() {
         interactor?.getSourceData()
+    }
+    
+    func getSourceByCategory(category: String) {
+        interactor?.getSourceByCategory(category: category)
     }
     
     func gotoArticle(data: Sources) {

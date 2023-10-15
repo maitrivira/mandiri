@@ -35,13 +35,9 @@ class NewsHomeViewController: UIViewController {
     }
     
     public func setupView() {
-        setupNavigation()
+        self.navigationItem.title = "NEWS"
         view.addSubview(spinner)
         configureCollectionView()
-    }
-    
-    func setupNavigation() {
-        self.navigationItem.title = "NEWS"
     }
     
     private func configureCollectionView() {
@@ -50,6 +46,7 @@ class NewsHomeViewController: UIViewController {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "category")
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "search")
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "sources")
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "emptyData")
         collectionView.register(CategoryCVC.self, forCellWithReuseIdentifier: CategoryCVC.identifier)
         collectionView.register(NewsCVC.self, forCellWithReuseIdentifier: NewsCVC.identifier)
         collectionView.dataSource = self
@@ -162,12 +159,12 @@ class NewsHomeViewController: UIViewController {
                     heightDimension: .fractionalHeight(1.0)
                 )
             )
-            item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 16, bottom: 2, trailing: 16)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
             
             let verticalGroup = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(400)
+                    heightDimension: .absolute(500)
                 ),
                 subitem: item,
                 count: 3
@@ -253,6 +250,12 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let type = sections[indexPath.section]
         switch type {
+        case .category:
+            if indexPath.row == 0 {
+                presenter?.getSourceData()
+            } else {
+                presenter?.getSourceByCategory(category: listOfCategory[indexPath.row])
+            }
         case .sources:
             let source = sources[indexPath.row]
             presenter?.gotoArticle(data: source)

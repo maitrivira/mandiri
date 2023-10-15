@@ -7,7 +7,7 @@
 
 import Foundation
 
-public let listOfCategory: [String] = ["All", "Business", "Entertaiment", "General", "Health", "Science", "Sports", "Tech"]
+public let listOfCategory: [String] = ["All", "Business", "Entertaiment", "General", "Health", "Science", "Sports", "Technology"]
 
 enum NewsHomeSectionType {
     case categoryTitle
