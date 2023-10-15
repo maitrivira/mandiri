@@ -7,11 +7,6 @@
 
 import Foundation
 
-enum HTTPMethod: String {
-    case GET
-    case POST
-}
-
 enum NetworkError: Error {
     case serverError
     case decodeError
@@ -26,6 +21,5 @@ final class APICaller {
     }
     
     private init() {}
-    
     
 }

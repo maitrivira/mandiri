@@ -43,7 +43,6 @@ class NewsCVC: UICollectionViewCell {
     
     fileprivate let title: UILabel = {
         let title = UILabel()
-        title.text = "title"
         title.numberOfLines = 2
         title.font = UIFont.boldSystemFont(ofSize: 16.0)
         title.textColor = .black
@@ -53,7 +52,6 @@ class NewsCVC: UICollectionViewCell {
     
     fileprivate let desc: UILabel = {
         let desc = UILabel()
-        desc.text = "desc"
         desc.textColor = .black
         desc.numberOfLines = 0
         desc.font = UIFont.systemFont(ofSize: 14.0)
