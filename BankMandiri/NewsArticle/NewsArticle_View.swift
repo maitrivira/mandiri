@@ -127,12 +127,9 @@ extension NewsArticleViewController: UISearchResultsUpdating, UISearchController
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
         if text.count > 1 {
-            let filter = articles.filter { sources in
-                let name = sources.title ?? ""
-                return name.lowercased().contains(text)
+            let filter = articles.filter {
+                return $0.title?.lowercased().range(of: text.lowercased()) != nil
             }
-            print("===== text", text)
-            print("===== filter", filter)
             collectionView.isHidden = false
             articles = filter
             collectionView.reloadData()
