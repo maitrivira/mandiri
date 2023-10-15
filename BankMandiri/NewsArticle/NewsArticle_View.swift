@@ -40,7 +40,24 @@ class NewsArticleViewController: UIViewController {
     public func setupView() {
         self.navigationItem.title = "ARTICLE"
         view.addSubview(spinner)
+        setupSearchBar()
         configureCollectionView()
+    }
+    
+    private func setupSearchBar() {
+        let searchController: UISearchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Article"
+        
+        self.navigationItem.searchController = searchController
+        self.definesPresentationContext = false
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
     }
     
     private func configureCollectionView() {
@@ -103,5 +120,28 @@ extension NewsArticleViewController: NewsArticle_View_Protocol {
             self.articles = articles
             self.collectionView.reloadData()
         }
+    }
+}
+
+extension NewsArticleViewController: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate  {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        if text.count > 1 {
+            let filter = articles.filter { sources in
+                let name = sources.title ?? ""
+                return name.lowercased().contains(text)
+            }
+            print("===== text", text)
+            print("===== filter", filter)
+            collectionView.isHidden = false
+            articles = filter
+            collectionView.reloadData()
+        } else {
+            presenter?.viewDidLoad()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        presenter?.viewDidLoad()
     }
 }

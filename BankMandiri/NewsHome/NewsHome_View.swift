@@ -63,7 +63,6 @@ class NewsHomeViewController: UIViewController {
         collectionView.isHidden = true
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "category")
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "sources")
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "emptyData")
         collectionView.register(CategoryCVC.self, forCellWithReuseIdentifier: CategoryCVC.identifier)
         collectionView.register(NewsCVC.self, forCellWithReuseIdentifier: NewsCVC.identifier)
         collectionView.dataSource = self
@@ -273,8 +272,11 @@ extension NewsHomeViewController: UISearchResultsUpdating, UISearchControllerDel
             }
             print("===== text", text)
             print("===== filter", filter)
+            collectionView.isHidden = false
             sources = filter
             collectionView.reloadData()
+        } else {
+            presenter?.getSourceData()
         }
     }
     

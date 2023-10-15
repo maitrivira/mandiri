@@ -11,7 +11,8 @@ class NewsArticleInteractor: NewsArticle_Interactor_Protocol {
     var presenter: NewsArticle_Presenter_Protocol?
     
     func getArticleData(id: String) {
-        guard let url = URL(string: "https://newsapi.org/v2/top-headlines?sources=\(id)&apiKey=19265ec268d14e0c8a3c13d0b58d2eac") else { return }
+        let urlString = "\(APICaller.Constants.apiURL)?sources=\(id)&apiKey=\(APICaller.Constants.apiKey)"
+        guard let url = URL(string: urlString) else { return }
         
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             guard let data = data, error == nil else {

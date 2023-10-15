@@ -45,6 +45,7 @@ class NewsCVC: UICollectionViewCell {
         let title = UILabel()
         title.text = "title"
         title.numberOfLines = 2
+        title.font = UIFont.boldSystemFont(ofSize: 16.0)
         title.textColor = .black
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
@@ -55,6 +56,7 @@ class NewsCVC: UICollectionViewCell {
         desc.text = "desc"
         desc.textColor = .black
         desc.numberOfLines = 0
+        desc.font = UIFont.systemFont(ofSize: 14.0)
         desc.translatesAutoresizingMaskIntoConstraints = false
         return desc
     }()
