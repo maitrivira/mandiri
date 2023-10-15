@@ -12,6 +12,7 @@ class NewsArticleViewController: UIViewController {
     var presenter: NewsArticle_Presenter_Protocol?
     
     private var articles = [Articles]()
+    private var didTapDeleteKey = false
     
     private var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
@@ -133,9 +134,20 @@ extension NewsArticleViewController: UISearchResultsUpdating, UISearchController
             collectionView.isHidden = false
             articles = filter
             collectionView.reloadData()
-        } else {
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        didTapDeleteKey = text.isEmpty
+        return true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !didTapDeleteKey && searchText.isEmpty {
             presenter?.viewDidLoad()
         }
+
+        didTapDeleteKey = false
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

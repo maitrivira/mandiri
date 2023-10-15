@@ -28,6 +28,7 @@ class NewsHomeViewController: UIViewController {
     private var sections = [NewsHomeSectionType]()
     private var sources = [Sources]()
     private var emptyData = false
+    private var didTapDeleteKey = false
     
     override func viewDidLoad() {
         presenter?.viewDidLoad()
@@ -272,9 +273,20 @@ extension NewsHomeViewController: UISearchResultsUpdating, UISearchControllerDel
             collectionView.isHidden = false
             sources = filter
             collectionView.reloadData()
-        } else {
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        didTapDeleteKey = text.isEmpty
+        return true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !didTapDeleteKey && searchText.isEmpty {
             presenter?.getSourceData()
         }
+
+        didTapDeleteKey = false
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
