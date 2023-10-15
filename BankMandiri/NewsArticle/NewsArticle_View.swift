@@ -91,8 +91,8 @@ extension NewsArticleViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let link = articles[indexPath.row].url ?? ""
-        presenter?.gotoWebView(link: link)
+        let url = articles[indexPath.row].url ?? ""
+        presenter?.gotoWebView(url: url)
     }
 }
 

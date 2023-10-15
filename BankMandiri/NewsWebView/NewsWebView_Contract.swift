@@ -9,6 +9,7 @@ import Foundation
 
 protocol NewsWebView_View_Protocol: AnyObject {
     var presenter: NewsWebView_Presenter_Protocol? { get set }
+    func reloadWeb(link: String)
 }
 
 protocol NewsWebView_Presenter_Protocol: AnyObject {
@@ -25,5 +26,5 @@ protocol NewsWebView_Interactor_Protocol: AnyObject {
 
 protocol NewsWebView_Router_Protocol: AnyObject {
     var entity: NewsWebViewViewController? { get }
-    static func createWebView(data: [String: Any]?) -> NewsWebView_Router_Protocol
+    static func createWebView(url: String?) -> NewsWebView_Router_Protocol
 }

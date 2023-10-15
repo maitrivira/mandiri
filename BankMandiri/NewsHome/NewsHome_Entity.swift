@@ -12,7 +12,6 @@ public let listOfCategory: [String] = ["All", "Business", "Entertaiment", "Gener
 enum NewsHomeSectionType {
     case categoryTitle
     case category
-    case search
     case sourcesTitle
     case sources
 }
@@ -23,11 +22,11 @@ struct SuccesSources: Decodable {
 }
 
 struct Sources: Decodable {
-    let id: String
-    let name: String
-    let description: String
-    let url: String
-    let category: String
-    let language: String
-    let country: String
+    let id: String?
+    let name: String?
+    let description: String?
+    let url: String?
+    let category: String?
+    let language: String?
+    let country: String?
 }

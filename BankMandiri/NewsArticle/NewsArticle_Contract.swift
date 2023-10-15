@@ -17,7 +17,7 @@ protocol NewsArticle_Presenter_Protocol: AnyObject {
     var interactor: NewsArticle_Interactor_Protocol? { get set }
     var router: NewsArticle_Router_Protocol? { get set }
     func viewDidLoad()
-    func gotoWebView(link: String)
+    func gotoWebView(url: String)
     func successGetArticleData(result: Result<[Articles], Error>)
 }
 
@@ -29,5 +29,5 @@ protocol NewsArticle_Interactor_Protocol: AnyObject {
 protocol NewsArticle_Router_Protocol: AnyObject {
     var entity: NewsArticleViewController? { get }
     static func createArticle(data: [String: Any]?) -> NewsArticle_Router_Protocol
-    func gotoWebView(data: [String: Any]?)
+    func gotoWebView(url: String)
 }

@@ -24,6 +24,15 @@ class NewsCVC: UICollectionViewCell {
         }
     }
     
+    var isEmpty: Bool? {
+        didSet {
+            guard let isEmpty = isEmpty else { return }
+            empty.isHidden = !isEmpty
+            title.isHidden = isEmpty
+            desc.isHidden = isEmpty
+        }
+    }
+    
     fileprivate let view: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
@@ -50,11 +59,22 @@ class NewsCVC: UICollectionViewCell {
         return desc
     }()
     
+    fileprivate let empty: UILabel = {
+        let empty = UILabel()
+        empty.text = "Empty Data"
+        empty.textColor = .black
+        empty.textAlignment = .center
+        empty.numberOfLines = 0
+        empty.translatesAutoresizingMaskIntoConstraints = false
+        return empty
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(view)
         view.addSubview(title)
         view.addSubview(desc)
+        view.addSubview(empty)
         cellConstraint()
     }
     
@@ -67,6 +87,12 @@ class NewsCVC: UICollectionViewCell {
         view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        
+        empty.isHidden = true
+        empty.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        empty.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        empty.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        empty.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         title.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         title.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true

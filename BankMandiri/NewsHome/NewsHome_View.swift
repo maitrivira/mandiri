@@ -27,6 +27,7 @@ class NewsHomeViewController: UIViewController {
     
     private var sections = [NewsHomeSectionType]()
     private var sources = [Sources]()
+    private var emptyData = false
     
     override func viewDidLoad() {
         presenter?.viewDidLoad()
@@ -37,14 +38,30 @@ class NewsHomeViewController: UIViewController {
     public func setupView() {
         self.navigationItem.title = "NEWS"
         view.addSubview(spinner)
+        setupSearchBar()
         configureCollectionView()
+    }
+    
+    private func setupSearchBar() {
+        let searchController: UISearchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Sources"
+        
+        self.navigationItem.searchController = searchController
+        self.definesPresentationContext = false
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
     }
     
     private func configureCollectionView() {
         view.addSubview(collectionView)
         collectionView.isHidden = true
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "category")
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "search")
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "sources")
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "emptyData")
         collectionView.register(CategoryCVC.self, forCellWithReuseIdentifier: CategoryCVC.identifier)
@@ -56,7 +73,6 @@ class NewsHomeViewController: UIViewController {
     func configureModel() {
         sections.append(.categoryTitle)
         sections.append(.category)
-        sections.append(.search)
         sections.append(.sourcesTitle)
         sections.append(.sources)
     }
@@ -138,27 +154,6 @@ class NewsHomeViewController: UIViewController {
                     heightDimension: .fractionalHeight(1.0)
                 )
             )
-            item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 16, bottom: 2, trailing: 16)
-            
-            let group = NSCollectionLayoutGroup.horizontal(
-                layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(50)
-                ),
-                subitem: item,
-                count: 1
-            )
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = .continuous
-            return section
-        case 4:
-            let item = NSCollectionLayoutItem(
-                layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .fractionalHeight(1.0)
-                )
-            )
             item.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
             
             let verticalGroup = NSCollectionLayoutGroup.vertical(
@@ -203,6 +198,9 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
         case .category:
             return listOfCategory.count
         case .sources:
+            if emptyData {
+                return 1
+            }
             return sources.count
         default:
             return 1
@@ -222,13 +220,6 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCVC.identifier, for: indexPath) as? CategoryCVC else { return UICollectionViewCell() }
             cell.text = listOfCategory[indexPath.row]
             return cell
-        case .search:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "search", for: indexPath)
-            let search: UITextField = UITextField(frame: CGRect(x: 0, y: 0, width: cell.bounds.size.width, height: cell.bounds.size.height))
-            search.placeholder = "Search"
-            search.borderStyle = UITextField.BorderStyle.line
-            cell.contentView.addSubview(search)
-            return cell
         case .sourcesTitle:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sources", for: indexPath)
             let title = UILabel(frame: CGRect(x: 0, y: 0, width: cell.bounds.size.width, height: 50))
@@ -237,8 +228,13 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
             return cell
         case .sources:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCVC.identifier, for: indexPath) as? NewsCVC else { return UICollectionViewCell() }
-            cell.titleData = sources[indexPath.row].name
-            cell.descData = sources[indexPath.row].description
+            if emptyData {
+                cell.isEmpty = true
+            } else {
+                cell.isEmpty = false
+                cell.titleData = sources[indexPath.row].name
+                cell.descData = sources[indexPath.row].description
+            }
             return cell
         }
     }
@@ -257,17 +253,44 @@ extension NewsHomeViewController: UICollectionViewDataSource, UICollectionViewDe
                 presenter?.getSourceByCategory(category: listOfCategory[indexPath.row])
             }
         case .sources:
-            let source = sources[indexPath.row]
-            presenter?.gotoArticle(data: source)
+            if !emptyData {
+                let source = sources[indexPath.row]
+                presenter?.gotoArticle(data: source)
+            }
         default:
             break
         }
     }
 }
 
+extension NewsHomeViewController: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate  {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        if text.count > 1 {
+            let filter = sources.filter { sources in
+                let name = sources.name ?? ""
+                return name.lowercased().contains(text)
+            }
+            print("===== text", text)
+            print("===== filter", filter)
+            sources = filter
+            collectionView.reloadData()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        presenter?.getSourceData()
+    }
+}
+
 extension NewsHomeViewController: NewsHome_View_Protocol {
     func update(sources: [Sources]) {
         DispatchQueue.main.async {
+            if sources.count > 0 {
+                self.emptyData = false
+            } else {
+                self.emptyData = true
+            }
             self.collectionView.isHidden = false
             self.sources = sources
             self.collectionView.reloadData()

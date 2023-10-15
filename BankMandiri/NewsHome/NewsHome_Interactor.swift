@@ -11,7 +11,7 @@ class NewsHomeInteractor: NewsHome_Interactor_Protocol {
     var presenter: NewsHome_Presenter_Protocol?
     
     func getSourceByCategory(category: String) {
-        guard let url = URL(string: "https://newsapi.org/v2/top-headlines/sources?category=\(category.lowercased())&apiKey=9531a305c89d4b4981c20b1a9a2aa182") else { return }
+        guard let url = URL(string: "https://newsapi.org/v2/top-headlines/sources?category=\(category.lowercased())&apiKey=19265ec268d14e0c8a3c13d0b58d2eac") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             guard let data = data, error == nil else {
@@ -31,7 +31,7 @@ class NewsHomeInteractor: NewsHome_Interactor_Protocol {
     }
     
     func getSourceData() {
-        guard let url = URL(string: "https://newsapi.org/v2/top-headlines/sources?apiKey=9531a305c89d4b4981c20b1a9a2aa182") else { return }
+        guard let url = URL(string: "https://newsapi.org/v2/top-headlines/sources?apiKey=19265ec268d14e0c8a3c13d0b58d2eac") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             guard let data = data, error == nil else {

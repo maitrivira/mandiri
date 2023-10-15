@@ -16,7 +16,7 @@ class NewsWebViewPresenter: NewsWebView_Presenter_Protocol {
         if let data = data {
             let link = data["link"] as? String
             if let link = link {
-                
+                view?.reloadWeb(link: link)
             }
         }
     }
