@@ -21,13 +21,6 @@ class NewsArticleViewController: UIViewController {
         }
     )
     
-    private let spinner: UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView()
-        spinner.tintColor = .label
-        spinner.hidesWhenStopped = true
-        return spinner
-    }()
-    
     override func viewDidLoad() {
         presenter?.viewDidLoad()
         setupView()
@@ -40,7 +33,6 @@ class NewsArticleViewController: UIViewController {
     
     public func setupView() {
         self.navigationItem.title = "ARTICLE"
-        view.addSubview(spinner)
         setupSearchBar()
         configureCollectionView()
     }

@@ -18,13 +18,6 @@ class NewsHomeViewController: UIViewController {
         }
     )
     
-    private let spinner: UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView()
-        spinner.tintColor = .label
-        spinner.hidesWhenStopped = true
-        return spinner
-    }()
-    
     private var sections = [NewsHomeSectionType]()
     private var sources = [Sources]()
     private var emptyData = false
@@ -38,7 +31,6 @@ class NewsHomeViewController: UIViewController {
     
     public func setupView() {
         self.navigationItem.title = "NEWS"
-        view.addSubview(spinner)
         setupSearchBar()
         configureCollectionView()
     }
